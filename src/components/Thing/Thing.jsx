@@ -17,7 +17,7 @@ const Thing = ({
 const BlockingThing = styled(Thing)(props => {
   const { collision } = props
 
-  const borderColor = collision ? 'orange' : 'yellow'
+  const borderColor = collision.thing ? 'orange' : 'yellow'
 
   return `
     position: absolute;

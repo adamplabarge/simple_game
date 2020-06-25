@@ -14,10 +14,6 @@ import {
   moveRight,
   moveDown,
   moveLeft,
-  nextMoveUp,
-  nextMoveRight,
-  nextMoveDown,
-  nextMoveLeft,
 } from 'utils/move'
 import {
   canMoveUp,
@@ -34,35 +30,42 @@ function Game() {
   const handleKeyInput = ({ keyName }) => {
     switch (keyName) {
       case DIRECTION.UP: 
-        if (canMoveUp(nextMoveUp(position))) {
+        const pieceCanMoveUp = canMoveUp(position)
+        if (!pieceCanMoveUp.collision) {
           setPosition(moveUp(position))
           setCollision(false)
         } else {
-          setCollision(true)
+          setCollision(pieceCanMoveUp)
         }
         break
-      case DIRECTION.RiGHT:
-        if (canMoveRight(nextMoveRight(position))) {
+
+      case DIRECTION.RIGHT:
+        const pieceCanMoveRight = canMoveRight(position)
+        if (!pieceCanMoveRight.collision) {
           setPosition(moveRight(position))
           setCollision(false)
         } else {
-          setCollision(true)
+          setCollision(pieceCanMoveRight)
         }
         break
+        
       case DIRECTION.DOWN:
-        if (canMoveDown(nextMoveDown(position))) {
+        const pieceCanMoveDown = canMoveDown(position)
+        if (!pieceCanMoveDown.collision) {
           setPosition(moveDown(position))
           setCollision(false)
         } else {
-          setCollision(true)
+          setCollision(pieceCanMoveDown)
         }
         break
+
       case DIRECTION.LEFT:
-        if (canMoveLeft(nextMoveLeft(position))) {
+        const pieceCanMoveLeft = canMoveLeft(position)
+        if (!pieceCanMoveLeft.collision) {
           setPosition(moveLeft(position))
           setCollision(false)
         } else {
-          setCollision(true)
+          setCollision(pieceCanMoveLeft)
         }
         break
       default:
@@ -77,6 +80,7 @@ function Game() {
       <GameBoard
         position={INITIAL_BOARD_POSITION}
         boardSize={BOARD_SIZE}
+        collision={collision}
       />
       <Piece
         collision={collision}

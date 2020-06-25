@@ -4,46 +4,89 @@ import {
   PIECE_SIZE,
   THING_INITIAL_POSITION,
   THING_SIZE,
-  DIRECTION
+  DIRECTION,
+  GAME_BOARD_BOARDER_SIZE,
+  SIDES
 } from './constants'
 import { isBetween } from 'utils'
+import {
+  nextMoveUp,
+  nextMoveRight,
+  nextMoveDown,
+  nextMoveLeft,
+} from 'utils/move'
 
 export const canMoveUp = ({ top, left }) => {
+  const nextMove = nextMoveUp({ top, left })
+  const hitThing = doesMoveHitThing(DIRECTION.UP, nextMove)
   const boardTop = INITIAL_BOARD_POSITION.top
-  const willHitThing = doesMoveHitThing(DIRECTION.UP, { top, left })
-  
-  if (!willHitThing) {
-    if (top > boardTop)
-      return true
-  }
-  return false
+  const hitTop = willHitTop(nextMove.top, boardTop) 
+
+  if (hitTop || hitThing)
+    return {
+      collision: true,
+      top: hitTop,
+      thing: hitThing,
+      side: SIDES.TOP
+    }
+  return true
 }
 
 export const canMoveRight = ({ top, left }) => {
+  const nextMove = nextMoveRight({ top, left })
+  const hitThing = doesMoveHitThing(DIRECTION.RIGHT, nextMove)
   const boardRight = INITIAL_BOARD_POSITION.left + BOARD_SIZE - PIECE_SIZE 
-  const willHitThing = doesMoveHitThing(DIRECTION.RIGHT, { top, left })
-    
-  if (left < boardRight && !willHitThing)
-    return true
-  return false
+  const hitRight = willHitRight(nextMove.left, boardRight)
+  
+  if (hitRight || hitThing)
+    return {
+      collision: true,
+      right: hitRight,
+      thing: hitThing,
+      side: SIDES.RIGHT
+    }
+
+  return {
+    collision: false,
+  }
 }
 
 export const canMoveDown = ({ top, left  }) => {
+  const nextMove = nextMoveDown({ top, left })
+  const hitThing = doesMoveHitThing(DIRECTION.DOWN, nextMove)
   const boardBottom = INITIAL_BOARD_POSITION.top + BOARD_SIZE - PIECE_SIZE
-  const willHitThing = doesMoveHitThing(DIRECTION.DOWN, { top, left })
-  
-  if (top < boardBottom && !willHitThing)
-    return true
-  return false
+  const hitBottom = willHitBottom(nextMove.top, boardBottom)
+
+  if (hitBottom || hitThing)
+    return {
+      collision: true,
+      bottom: hitBottom,
+      thing: hitThing,
+      side: SIDES.BOTTOM
+    }
+
+  return {
+    collision: false,
+  }
 }
 
 export const canMoveLeft = ({ top, left }) => {
+  const nextMove = nextMoveLeft({ left , top })
+  const hitThing = doesMoveHitThing(DIRECTION.LEFT, nextMove)
   const boardLeft = INITIAL_BOARD_POSITION.left
-  const willHitThing = doesMoveHitThing(DIRECTION.LEFT, { top, left })
-  
-  if (left > boardLeft && !willHitThing)
-    return true
-  return false
+  const hitLeft = willHitLeft(nextMove.left, boardLeft)
+
+  if (hitLeft || hitThing)
+    return {
+      collision: true,
+      left: hitLeft,
+      thing: hitThing,
+      side: SIDES.LEFT
+    }
+
+  return {
+    collision: false,
+  }
 }
 
 const doesMoveHitThing = (direction, { top, left }) => {
@@ -71,4 +114,20 @@ const doesMoveHitThing = (direction, { top, left }) => {
     }
 
   return collisionWidth && collisionHeight
+}
+
+export const willHitTop = (movePosition, top) => {
+  return movePosition < top + GAME_BOARD_BOARDER_SIZE
+} 
+
+export const willHitRight = (movePosition, right) => {
+  return movePosition > right - GAME_BOARD_BOARDER_SIZE
+}
+
+export const willHitBottom = (movePosition, bottom) => {
+  return movePosition > bottom - GAME_BOARD_BOARDER_SIZE
+}
+
+export const willHitLeft = (movePosition, left) => {
+  return movePosition < left + GAME_BOARD_BOARDER_SIZE
 }

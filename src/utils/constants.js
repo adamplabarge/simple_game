@@ -4,12 +4,13 @@ export const INITIAL_BOARD_POSITION = Object.freeze({
 })
 
 export const INTIAL_PIECE_POSITION = Object.freeze({
-  top: 0,
-  left: 0
+  top: 10,
+  left: 10
 })
 
 export const STEP_SIZE = 5
 export const BOARD_SIZE = 100
+export const GAME_BOARD_BOARDER_SIZE = 5
 
 export const PIECE_SIZE = 10
 
@@ -26,7 +27,18 @@ const ARROW_LEFT = 'ArrowLeft'
 
 export const DIRECTION = Object.freeze({
   'UP': ARROW_UP,
-  'RiGHT': ARROW_RIGHT,
+  'RIGHT': ARROW_RIGHT,
   'DOWN': ARROW_DOWN,
   'LEFT': ARROW_LEFT
+})
+
+const TOP = 'TOP'
+const RIGHT = 'RIGHT'
+const BOTTOM = 'BOTTOM'
+const LEFT = 'LEFT'
+export const SIDES = Object.freeze({
+  TOP,
+  RIGHT,
+  BOTTOM,
+  LEFT
 })

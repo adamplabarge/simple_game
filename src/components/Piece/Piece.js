@@ -19,7 +19,7 @@ const GamePiece = styled(Piece)(props => {
       left
     }} = props
 
-  const backgroundColor = collision ? 'red' : 'pink'
+  const backgroundColor = !!collision ? 'red' : 'pink'
 
   return `
     position: absolute;
