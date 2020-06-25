@@ -13,6 +13,7 @@ const Board = ({
   )
 }
  
+const defaultBorderColor = '#023202'
 const GameBoard = styled(Board)(props => {
   const {
     collision,
@@ -22,7 +23,7 @@ const GameBoard = styled(Board)(props => {
       left
     }} = props
     
-  const borderColor = collision ? 'red' : '#023202'
+  const borderColor = collision ? 'red' : defaultBorderColor
   const { side } = collision
   const hasHitSide = side ? collision[side.toLowerCase()] : false
 
@@ -34,7 +35,9 @@ const GameBoard = styled(Board)(props => {
     width: ${boardSize}px;
     background-color: green;
     border: ${GAME_BOARD_BOARDER_SIZE}px solid;
+    ${hasHitSide ? `border-color: ${defaultBorderColor};` : ``}
     border-${hasHitSide ? `${side.toLowerCase()}-` : ``}color: ${borderColor};
+
   `
 })
 
