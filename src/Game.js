@@ -1,76 +1,73 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import useKey from 'react-keyboard-input-hook'
 import GameBoard from 'components/Board'
 import Piece from 'components/Piece'
 import Thing from 'components/Thing'
 import {
   BOARD_SIZE,
-  DIRECTION,
   INTIAL_PIECE_POSITION,
-  INITIAL_BOARD_POSITION
+  INITIAL_BOARD_POSITION,
+  MOVEMENT_STEPS
 } from 'utils/constants'
 import {
-  moveUp,
-  moveRight,
-  moveDown,
-  moveLeft,
-} from 'utils/move'
-import {
-  canMoveUp,
-  canMoveRight,
-  canMoveDown,
-  canMoveLeft,
+  canMove
 } from 'utils/collision'
+
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
 
 function Game() {
 
   const [position, setPosition] = useState(INTIAL_PIECE_POSITION)
   const [collision, setCollision] = useState(false)
+  const [direction, setDirection] = useState(false)
+  const [step, setStep] = useState(0)
+
+  useInterval(() => {
+    if (direction) {
+      if (step < MOVEMENT_STEPS.length) {
+        const {
+          moveTo,
+          collision
+        } = canMove(position, step, direction)
+        
+        if (!collision) {
+          setPosition(moveTo)
+          setStep(step + 1)
+        } else {
+          setPosition(position)
+          setDirection(false)
+          setStep(0)
+        }
+
+        setCollision(collision)
+      
+      } else {
+        setDirection(false)
+        setStep(0)
+      }
+    }
+  }, 50)  
 
   const handleKeyInput = ({ keyName }) => {
-    switch (keyName) {
-      case DIRECTION.UP: 
-        const pieceCanMoveUp = canMoveUp(position)
-        if (!pieceCanMoveUp.collision) {
-          setPosition(moveUp(position))
-          setCollision(false)
-        } else {
-          setCollision(pieceCanMoveUp)
-        }
-        break
-
-      case DIRECTION.RIGHT:
-        const pieceCanMoveRight = canMoveRight(position)
-        if (!pieceCanMoveRight.collision) {
-          setPosition(moveRight(position))
-          setCollision(false)
-        } else {
-          setCollision(pieceCanMoveRight)
-        }
-        break
-        
-      case DIRECTION.DOWN:
-        const pieceCanMoveDown = canMoveDown(position)
-        if (!pieceCanMoveDown.collision) {
-          setPosition(moveDown(position))
-          setCollision(false)
-        } else {
-          setCollision(pieceCanMoveDown)
-        }
-        break
-
-      case DIRECTION.LEFT:
-        const pieceCanMoveLeft = canMoveLeft(position)
-        if (!pieceCanMoveLeft.collision) {
-          setPosition(moveLeft(position))
-          setCollision(false)
-        } else {
-          setCollision(pieceCanMoveLeft)
-        }
-        break
-      default:
-        return
-    }
+    setDirection(keyName)
   }
 
   useKey(handleKeyInput)
@@ -86,9 +83,9 @@ function Game() {
         collision={collision}
         position={position}
       />
-      <Thing
+      {/* <Thing
         collision={collision}
-      />
+      /> */}
     </div>
   )
 }

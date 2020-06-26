@@ -1,30 +1,28 @@
-import { STEP_SIZE } from './constants'
-
-export const moveUp = ({ top, left}) => {
+export const moveUp = ({ top, left }, progress) => {
   return {
-    top: top - STEP_SIZE,
+    top: top - progress,
     left
   }
 }
 
-export const moveRight = ({ top, left}) => {
+export const moveRight = ({ top, left }, progress) => {
   return {
     top,
-    left: left + STEP_SIZE
+    left: left + progress
   }
 }
 
-export const moveDown = ({ top, left}) => {
+export const moveDown = ({ top, left }, progress) => {
   return {
-    top: top + STEP_SIZE,
+    top: top + progress,
     left
   }
 }
 
-export const moveLeft = ({ top, left}) => {
+export const moveLeft = ({ top, left }, progress) => {
   return {
     top,
-    left: left - STEP_SIZE
+    left: left - progress
   } 
 }
 

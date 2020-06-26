@@ -2,7 +2,6 @@ import React from 'react'
 import styled from '@emotion/styled'
 import {
   GAME_BOARD_BOARDER_SIZE,
-  SIDES
 } from 'utils/constants'
 
 const Board = ({
