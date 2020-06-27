@@ -1,2 +1,2 @@
-import GameBoard from './Board'
-export default GameBoard
+import Board from './Board'
+export default Board

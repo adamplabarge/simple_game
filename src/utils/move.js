@@ -25,8 +25,3 @@ export const moveLeft = ({ top, left }, progress) => {
     left: left - progress
   } 
 }
-
-export const nextMoveUp = moveUp
-export const nextMoveRight = moveRight
-export const nextMoveDown = moveDown
-export const nextMoveLeft = moveLeft

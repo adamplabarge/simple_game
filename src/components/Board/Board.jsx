@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import {
-  GAME_BOARD_BOARDER_SIZE,
+  GAME_BOARD_SIZE,
+  GAME_BOARD_BORDER_SIZE
 } from 'utils/constants'
 
-const Board = ({
+const GameBoard = ({
   className,
 }) => {
   return (
@@ -12,32 +13,18 @@ const Board = ({
   )
 }
  
-const defaultBorderColor = '#023202'
-const GameBoard = styled(Board)(props => {
-  const {
-    collision,
-    boardSize,
-    position: {
-      top,
-      left
-    }} = props
-    
-  const borderColor = collision ? 'red' : defaultBorderColor
-  const { side } = collision
-  const hasHitSide = side ? collision[side.toLowerCase()] : false
-
+const Board = styled(GameBoard)(props => {
   return `
-    position: absolute;
-    top: ${top}px;
-    left: ${left}px;
-    height: ${boardSize}px;
-    width: ${boardSize}px;
+    width: ${GAME_BOARD_SIZE}px;
+    height: ${GAME_BOARD_SIZE}px;
     background-color: green;
-    border: ${GAME_BOARD_BOARDER_SIZE}px solid;
-    ${hasHitSide ? `border-color: ${defaultBorderColor};` : ``}
-    border-${hasHitSide ? `${side.toLowerCase()}-` : ``}color: ${borderColor};
-
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-width: ${GAME_BOARD_BORDER_SIZE}px;
+    border-color: khaki;
+    border-style: solid;
   `
 })
 
-export default GameBoard
+export default Board
