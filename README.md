@@ -2,10 +2,10 @@
 
 ![game demo gir](https://github.com/adamplabarge/simple_game/blob/more_things/demo.gif?raw=true)
 
-### Based on Create React App
-To Start: $ yarn run start
+### Based on Create React App and Coding Math 
+- start: $ yarn run start
 
-### Use arrow keys to move
+### Movement: Arrow keys
 
-#### Latest: 
-branch -> more_things | 2020/06/24
+### Latest: 2020/06/24
+- branch: more_things
