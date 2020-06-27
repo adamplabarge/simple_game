@@ -1,4 +1,4 @@
-export const MOVEMENT_STEPS = [2, 4, 5, 4, 3, 2, 1]
+export const ACCELERATION_STEPS = [5, 7, 9, 7, 5, 4, 3, 2, 1]
 
 export const INITIAL_BOARD_POSITION = Object.freeze({
   top: 0,

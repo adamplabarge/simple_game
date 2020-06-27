@@ -18,36 +18,41 @@ export const playerInitialState = {
   direction: STOP
 }
 
-export const playerReducer = (state, { type, progress, step }) => {
+export const playerReducer = (state, { type, progress, step, direction }) => {
   switch (type) {
     case DIRECTIONS.UP:
       return {
         ...state,
         position: moveUp(state.position, progress),
         step,
+        direction
       }
     case DIRECTIONS.RIGHT:
       return {
         ...state,
         position: moveRight(state.position, progress),
         step,
+        direction
       }
     case DIRECTIONS.DOWN:
       return {
         ...state,
         position: moveDown(state.position, progress),
         step,
+        direction
       }
     case DIRECTIONS.LEFT:
       return {
         ...state,
         position: moveLeft(state.position, progress),
         step,
+        direction
       }
     case STOP:
       return {
         ...state,
         step: 0,
+        direction
       }
     default:
       return state
