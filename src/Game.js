@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import Board from 'components/Board'
 import Player from 'components/Player'
 import Blocks from 'components/Blocks'
+import { withGameContext } from 'context/game'
 
 const Game = () => {
 
@@ -39,4 +40,4 @@ const Game = () => {
 const GameArea = styled.div`
 `
 
-export default Game;
+export default withGameContext(Game)

@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
 import {
   PLAYER_SIZE,
@@ -7,35 +7,40 @@ import {
   STOP
 } from 'utils/constants'
 import useKey from 'react-keyboard-input-hook'
-import {
-  playerReducer,
-  playerInitialState,
-  movePlayer,
-  stopPlayer
-} from 'state/player'
 import useInterval from 'hooks/interval'
+import { useGameContext } from 'hooks/game'
 
 const isStepAllowed = step => step < ACCELERATION_STEPS.length
 
 const Piece = () => {
-  
-  const [{
+
+  const {
+    movePlayer,
+    stopPlayer,
+    direction,
     step,
-    position,
-    direction
-  }, dispatch] = useReducer(playerReducer, playerInitialState)
+    position
+  } = useGameContext()
 
   useInterval(() => {
     if (isStepAllowed(step)) {
-      dispatch(movePlayer(direction, ACCELERATION_STEPS[step], step + 1))
+      movePlayer({
+        direction,
+        progress: ACCELERATION_STEPS[step],
+        step: step + 1
+      })
     } else {
-      dispatch(stopPlayer())
+      stopPlayer()
     }
   }, direction !== STOP ? 30 : null)
 
   const handleKeyInput = ({ keyName }) => {
     // kicks off and resets
-    dispatch(movePlayer(INPUT_DIRECTIONS[keyName], ACCELERATION_STEPS[0], 0,))
+    movePlayer({
+      direction: INPUT_DIRECTIONS[keyName],
+      progress: ACCELERATION_STEPS[0],
+      step: 0
+    })
   }
 
   useKey(handleKeyInput)

@@ -1,27 +1,5 @@
-import {
-  DIRECTIONS,
-  STOP
-} from 'utils/constants'
-import {
-  moveUp,
-  moveRight,
-  moveDown,
-  moveLeft
-} from 'utils/move'
-
-export const movePlayer = (direction, progress, step) => ({
-  type: direction,
-  progress,
-  step,
-  direction
-})
-
-export const stopPlayer = () => ({
-  type: STOP,
-  progress: 0,
-  step: 0,
-  direction: STOP
-})
+import { STOP } from 'utils/constants'
+import { handleMove } from 'utils/move'
 
 export const playerInitialState = {
   position: {
@@ -32,41 +10,27 @@ export const playerInitialState = {
   direction: STOP
 }
 
+const MOVE_PLAYER = 'MOVE_PLAYER'
+const STOP_PLAYER = 'STOP_PLAYER'
+export const playerActions = {
+  MOVE_PLAYER,
+  STOP_PLAYER
+}
+
 export const playerReducer = (state, { type, progress, step, direction }) => {
   switch (type) {
-    case DIRECTIONS.UP:
+    case MOVE_PLAYER:
       return {
         ...state,
-        position: moveUp(state.position, progress),
+        position: handleMove(direction, state.position, progress),
         step,
         direction
-      }
-    case DIRECTIONS.RIGHT:
-      return {
-        ...state,
-        position: moveRight(state.position, progress),
-        step,
-        direction
-      }
-    case DIRECTIONS.DOWN:
-      return {
-        ...state,
-        position: moveDown(state.position, progress),
-        step,
-        direction
-      }
-    case DIRECTIONS.LEFT:
-      return {
-        ...state,
-        position: moveLeft(state.position, progress),
-        step,
-        direction
-      }
-    case STOP:
+      }    
+    case STOP_PLAYER:
       return {
         ...state,
         step: 0,
-        direction
+        direction: STOP
       }
     default:
       return state

@@ -1,27 +1,40 @@
-export const moveUp = ({ top, left }, progress) => {
+import { DIRECTIONS } from 'utils/constants'
+
+const moveUp = ({ top, left }, progress) => {
   return {
     top: top - progress,
     left
   }
 }
 
-export const moveRight = ({ top, left }, progress) => {
+const moveRight = ({ top, left }, progress) => {
   return {
     top,
     left: left + progress
   }
 }
 
-export const moveDown = ({ top, left }, progress) => {
+const moveDown = ({ top, left }, progress) => {
   return {
     top: top + progress,
     left
   }
 }
 
-export const moveLeft = ({ top, left }, progress) => {
+const moveLeft = ({ top, left }, progress) => {
   return {
     top,
     left: left - progress
   } 
+}
+
+const moves = {
+  [DIRECTIONS.UP]: moveUp,
+  [DIRECTIONS.RIGHT]: moveRight,
+  [DIRECTIONS.DOWN]: moveDown,
+  [DIRECTIONS.LEFT]: moveLeft
+}
+
+export const handleMove = (direction, position, progress) => {
+  return moves[direction](position, progress)
 }
