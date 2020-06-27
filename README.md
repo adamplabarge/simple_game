@@ -1,6 +1,6 @@
 ### A simple game to work on the math and game logics.
 
-![game demo gir](https://github.com/adamplabarge/simple_game/blob/more_acceleration/demo.gif?raw=true)
+![game demo gir](https://github.com/adamplabarge/simple_game/blob/collision/demo.gif?raw=true)
 
 ### Based on Create React App and Coding Math 
 - start: $ yarn run start
