@@ -1,9 +1,17 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { useGameContext } from 'hooks/game'
 
 const Blocks = ({
   blocks
 }) => {
+
+  const {
+    direction,
+    position
+  } = useGameContext()
+
+  console.log(position)
 
   return (
     <>

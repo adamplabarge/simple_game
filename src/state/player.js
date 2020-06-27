@@ -7,7 +7,8 @@ export const playerInitialState = {
     left: 10
   },
   step: 0,
-  direction: STOP
+  direction: STOP,
+  progress: 0,
 }
 
 const MOVE_PLAYER = 'MOVE_PLAYER'

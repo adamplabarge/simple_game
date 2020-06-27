@@ -4,16 +4,23 @@ import {
   GAME_BOARD_SIZE,
   GAME_BOARD_BORDER_SIZE
 } from 'utils/constants'
+import { useGameContext } from 'hooks/game'
 
-const GameBoard = ({
-  className,
-}) => {
+const Board = () => {
+
+  const {
+    direction,
+    position
+  } = useGameContext()
+
+  console.log(position)
+
   return (
-    <div className={className} />
+    <GameBoard />
   )
 }
  
-const Board = styled(GameBoard)(props => {
+const GameBoard = styled.div(props => {
   return `
     width: ${GAME_BOARD_SIZE}px;
     height: ${GAME_BOARD_SIZE}px;

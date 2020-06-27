@@ -1,4 +1,7 @@
-import { DIRECTIONS } from 'utils/constants'
+import {
+  DIRECTIONS,
+  STOP
+} from 'utils/constants'
 
 const moveUp = ({ top, left }, progress) => {
   return {
@@ -32,7 +35,7 @@ const moves = {
   [DIRECTIONS.UP]: moveUp,
   [DIRECTIONS.RIGHT]: moveRight,
   [DIRECTIONS.DOWN]: moveDown,
-  [DIRECTIONS.LEFT]: moveLeft
+  [DIRECTIONS.LEFT]: moveLeft,
 }
 
 export const handleMove = (direction, position, progress) => {
