@@ -17,7 +17,6 @@ import useInterval from 'hooks/interval'
 
 const isStepAllowed = step => step < ACCELERATION_STEPS.length
 
-
 const Piece = () => {
   
   const [{
