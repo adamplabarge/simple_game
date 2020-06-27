@@ -16,7 +16,10 @@ const withGameContext = (Component) => {
 
   return function GameContextWrap(props) {
 
-    const [state, dispatch] = useReducer(combineReducers(playerReducer, collisionReducer), playerInitialState)
+    const [state, dispatch] = useReducer(
+      combineReducers(playerReducer, collisionReducer), 
+      {...playerInitialState, ...{ collision: false }}
+    )
     const createAction = action => payload => dispatch({
       type: action,
       ...payload
@@ -26,7 +29,8 @@ const withGameContext = (Component) => {
       ...state,
       movePlayer: createAction(playerActions.MOVE_PLAYER),
       stopPlayer: createAction(playerActions.STOP_PLAYER),
-      setCollision: createAction(collisionActions.COLLISION)
+      setHasCollision: createAction(collisionActions.HAS_COLLISION),
+      setNoCollision: createAction(collisionActions.NO_COLLISION),
     }
   
     return(

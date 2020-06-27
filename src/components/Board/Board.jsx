@@ -13,8 +13,6 @@ const Board = () => {
     position
   } = useGameContext()
 
-  console.log(position)
-
   return (
     <GameBoard />
   )

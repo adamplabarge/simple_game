@@ -19,11 +19,12 @@ const Piece = () => {
     stopPlayer,
     direction,
     step,
-    position
+    position,
+    collision
   } = useGameContext()
 
   useInterval(() => {
-    if (isStepAllowed(step)) {
+    if (!collision && isStepAllowed(step)) {
       movePlayer({
         direction,
         progress: ACCELERATION_STEPS[step],
@@ -47,6 +48,7 @@ const Piece = () => {
 
  return (
   <GamePiece
+    collision={collision}
     position={position}
     style={{
       top: position.top,
@@ -57,11 +59,13 @@ const Piece = () => {
 }
  
 const GamePiece = styled.div(props => {
+  const { collision } = props
+  const backgroundColor = collision ? 'red' : 'cornflowerblue'
   return `
     position: absolute;
     width: ${PLAYER_SIZE}px;
     height: ${PLAYER_SIZE}px;
-    background-color: cornflowerblue;
+    background-color: ${backgroundColor};
     z-index: 5;
   `
 })
