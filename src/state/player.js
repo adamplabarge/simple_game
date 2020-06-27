@@ -9,6 +9,20 @@ import {
   moveLeft
 } from 'utils/move'
 
+export const movePlayer = (direction, progress, step) => ({
+  type: direction,
+  progress,
+  step,
+  direction
+})
+
+export const stopPlayer = () => ({
+  type: STOP,
+  progress: 0,
+  step: 0,
+  direction: STOP
+})
+
 export const playerInitialState = {
   position: {
     top: 10,

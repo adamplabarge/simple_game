@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { useReducer } from 'react'
 import styled from '@emotion/styled'
 import {
   PLAYER_SIZE,
@@ -9,11 +9,14 @@ import {
 import useKey from 'react-keyboard-input-hook'
 import {
   playerReducer,
-  playerInitialState
+  playerInitialState,
+  movePlayer,
+  stopPlayer
 } from 'state/player'
 import useInterval from 'hooks/interval'
 
 const isStepAllowed = step => step < ACCELERATION_STEPS.length
+
 
 const Piece = () => {
   
@@ -25,30 +28,15 @@ const Piece = () => {
 
   useInterval(() => {
     if (isStepAllowed(step)) {
-      dispatch({
-        type: direction,
-        progress: ACCELERATION_STEPS[step],
-        step: step + 1,
-        direction
-      })
+      dispatch(movePlayer(direction, ACCELERATION_STEPS[step], step + 1))
     } else {
-      dispatch({
-        type: STOP,
-        progress: 0,
-        step: 0,
-        direction: STOP
-      })
+      dispatch(stopPlayer())
     }
   }, direction !== STOP ? 30 : null)
 
   const handleKeyInput = ({ keyName }) => {
     // kicks off and resets
-    dispatch({
-      type: INPUT_DIRECTIONS[keyName],
-      progress: ACCELERATION_STEPS[0],
-      step: 0,
-      direction: INPUT_DIRECTIONS[keyName]
-    })
+    dispatch(movePlayer(INPUT_DIRECTIONS[keyName], ACCELERATION_STEPS[0], 0,))
   }
 
   useKey(handleKeyInput)
