@@ -38,20 +38,17 @@ const Piece = () => {
  return (
   <GamePiece
     position={position}
+    style={{
+      top: position.top,
+      left: position.left
+    }}
   />
  )
 }
  
 const GamePiece = styled.div(props => {
-  const { position: {
-    top,
-    left
-  }} = props
-
   return `
     position: absolute;
-    top: ${top}px;
-    left: ${left}px;
     width: ${PLAYER_SIZE}px;
     height: ${PLAYER_SIZE}px;
     background-color: cornflowerblue;
