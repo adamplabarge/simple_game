@@ -33,21 +33,20 @@ const Blocks = ({
     } else {
       setNoCollision()
     }
-  }, [collision])
+  }, [collisionBlock])
 
   useEffect(() => {
     checkForCollisionsCallback()
-  }, [collision])
+  }, [collisionBlock])
 
   return (
     <>
       {
         blocks.map(
-          ({id, ...rest}) =>
+          block =>
             <GameBlock
-              key={id}
-              {...rest}
-              id={id}
+              key={block.id}
+              {...block}
               collisionBlock={collisionBlock}
             />
         )
