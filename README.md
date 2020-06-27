@@ -1,6 +1,6 @@
 ### A simple game to work on the math and game logics.
 
-![alt text](https://github.com/adamplabarge/simple_game/blob/master/demo.gif?raw=true)
+![game demo gir](https://github.com/adamplabarge/simple_game/blob/more_things/demo.gif?raw=true)
 
 ### Based on Create React App
 To Start: $ yarn run start
