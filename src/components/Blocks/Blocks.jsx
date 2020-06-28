@@ -45,14 +45,17 @@ const Blocks = ({
   const blocksData = data ? data : defaultBlocks
 
   const {
-    position,
+    position: {
+      top,
+      left
+    },
     setHasCollision,
     setNoCollision,
   } = useGameContext()
 
   const collisionBlock = useMemo(
-    () => blocksData.find(block => checkForBlockCollision(block, position)) || false
-    , [position.top, position.left]
+    () => blocksData.find(block => checkForBlockCollision(block, { top, left })) || false
+    , [top, left, blocksData]
   )
 
   const checkForCollisionsCallback = useCallback(() => {
@@ -61,11 +64,12 @@ const Blocks = ({
     } else {
       setNoCollision()
     }
-  }, [collisionBlock])
+  }, [collisionBlock, setHasCollision, setNoCollision])
 
   useEffect(() => {
     checkForCollisionsCallback()
-  }, [collisionBlock])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>

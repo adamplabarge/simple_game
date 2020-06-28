@@ -1,9 +1,4 @@
 import React from 'react'
-import { 
-  GAME_BOARD_SIZE,
-  GAME_BOARD_BORDER_SIZE,
-  SIDES
-} from 'utils/constants'
 import styled from '@emotion/styled'
 import Blocks from 'components/Blocks'
 

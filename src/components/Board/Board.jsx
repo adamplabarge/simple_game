@@ -5,7 +5,6 @@ import {
   GAME_BOARD_BORDER_SIZE,
   SIDES
 } from 'utils/constants'
-import { useGameContext } from 'hooks/game'
 import Sides from './Sides'
 
 const sidesData = [
@@ -39,29 +38,18 @@ const sidesData = [
   }
 ]
 
-const Board = () => {
-
-  const {
-    direction,
-    position
-  } = useGameContext()
-
-  return (
-    <GameBoard>
-      <Sides data={sidesData} />
-    </GameBoard>
-  )
-}
+const Board = () => <GameBoard>
+    <Sides data={sidesData} />
+  </GameBoard>
+  
  
-const GameBoard = styled.div(props => {
-  return `
-    width: ${GAME_BOARD_SIZE}px;
-    height: ${GAME_BOARD_SIZE}px;
-    background-color: green;
-    position: absolute;
-    top: 0;
-    left: 0;
-  `
-})
+const GameBoard = styled.div`
+  width: ${GAME_BOARD_SIZE}px;
+  height: ${GAME_BOARD_SIZE}px;
+  background-color: green;
+  position: absolute;
+  top: 0;
+  left: 0;
+`
 
 export default Board
