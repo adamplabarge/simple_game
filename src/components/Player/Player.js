@@ -27,7 +27,7 @@ const Piece = () => {
     position,
     collision
   } = useGameContext()
-console.log(collision)
+
   useInterval(() => {
     if (!collision && isStepAllowed(step)) {
       movePlayer({
@@ -41,7 +41,7 @@ console.log(collision)
   }, direction !== STOP ? 50 : null)
 
   const handleKeyInput = ({ keyName }) => {
-    if (isOppositeDirection(direction, keyName)) {
+    if (collision || isOppositeDirection(direction, keyName)) {
       stopPlayer()
     } else {
       movePlayer({
