@@ -37,7 +37,6 @@ const defaultBlocks = [
   }
 ]
 
-
 const Blocks = ({
   data,
   className
