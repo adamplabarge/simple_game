@@ -1,4 +1,4 @@
-export const ACCELERATION_STEPS = [5, 7, 9, 7, 5, 4, 3, 2, 1]
+export const ACCELERATION_STEPS = [7, 9, 13, 9, 7, 5, 3, 2, 1]
 
 export const INITIAL_BOARD_POSITION = Object.freeze({
   top: 0,
@@ -47,6 +47,14 @@ export const INPUT_DIRECTIONS = Object.freeze({
   [ARROW_DOWN]: 'DOWN',
   [ARROW_LEFT]: 'LEFT'
 })
+
+export const OPPOSITE_INPUT_DIRECTIONS = Object.freeze({
+  [ARROW_UP]: DOWN,
+  [ARROW_RIGHT]: LEFT,
+  [ARROW_DOWN]: UP,
+  [ARROW_LEFT]: RIGHT
+})
+
 export const SIDES = Object.freeze({
   TOP,
   RIGHT,

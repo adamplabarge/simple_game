@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import {
   PLAYER_SIZE,
   INPUT_DIRECTIONS,
+  OPPOSITE_INPUT_DIRECTIONS,
   ACCELERATION_STEPS,
   STOP
 } from 'utils/constants'
@@ -11,6 +12,10 @@ import useInterval from 'hooks/interval'
 import { useGameContext } from 'hooks/game'
 
 const isStepAllowed = step => step < ACCELERATION_STEPS.length
+
+const isOppositeDirection = (direction, keyName) => {
+  return OPPOSITE_INPUT_DIRECTIONS[keyName] === direction
+}
 
 const Piece = () => {
 
@@ -33,15 +38,18 @@ const Piece = () => {
     } else {
       stopPlayer()
     }
-  }, direction !== STOP ? 30 : null)
+  }, direction !== STOP ? 50 : null)
 
   const handleKeyInput = ({ keyName }) => {
-    // kicks off and resets
-    movePlayer({
-      direction: INPUT_DIRECTIONS[keyName],
-      progress: ACCELERATION_STEPS[0],
-      step: 0
-    })
+    if (isOppositeDirection(direction, keyName)) {
+      stopPlayer()
+    } else {
+      movePlayer({
+        direction: INPUT_DIRECTIONS[keyName],
+        progress: ACCELERATION_STEPS[0],
+        step: 0
+      })
+    }
   }
 
   useKey(handleKeyInput)
