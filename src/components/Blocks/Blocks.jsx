@@ -69,7 +69,7 @@ const Blocks = ({
   useEffect(() => {
     checkForCollisionsCallback()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [collisionBlock])
 
   return (
     <>

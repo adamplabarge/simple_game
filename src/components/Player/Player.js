@@ -27,7 +27,7 @@ const Piece = () => {
     position,
     collision
   } = useGameContext()
-
+console.log(collision)
   useInterval(() => {
     if (!collision && isStepAllowed(step)) {
       movePlayer({

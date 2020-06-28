@@ -7,6 +7,7 @@ export const collisionActions = {
 }
 
 export const collisionReducer = (state, { type, collisionBlock }) => {
+  console.log(type)
   switch (type) {
     case HAS_COLLISION:
       return {
