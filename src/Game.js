@@ -29,13 +29,13 @@ const GameArea = styled.div`
 
 const KeyPressed = styled.div`
   position: absolute;
-  color: white;
+  color: khaki;
   font-size: 8px;
-  top: 0;
+  top: 1px;
   margin: 0;
   line-height: 0.1;
   padding: 0;
-  right: 6px;
+  right: 7px;
 `
 
 export default withGameContext(Game)
