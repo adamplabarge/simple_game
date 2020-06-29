@@ -12,10 +12,9 @@ import useInterval from 'hooks/interval'
 import { useGameContext } from 'hooks/game'
 
 const isStepAllowed = step => step < ACCELERATION_STEPS.length
-
-const isOppositeDirection = (direction, keyName) => {
-  return OPPOSITE_INPUT_DIRECTIONS[keyName] === direction
-}
+const cutMoveShort = (direction, keyName) => isOppositeDirection(direction, keyName)
+const isOppositeDirection = (direction, keyName) => OPPOSITE_INPUT_DIRECTIONS[keyName] === direction
+const isAnyOtherDirection = (direction, keyName) => direction !== INPUT_DIRECTIONS[keyName]
 
 const Piece = () => {
 
@@ -25,7 +24,10 @@ const Piece = () => {
     direction,
     step,
     position,
-    collision
+    collision,
+    collisionBlock: {
+      direction: collisionDirection
+    }
   } = useGameContext()
 
   useInterval(() => {
@@ -41,10 +43,24 @@ const Piece = () => {
   }, direction !== STOP ? 50 : null)
 
   const handleKeyInput = ({ keyName }) => {
-    if (collision || isOppositeDirection(direction, keyName)) {
-      stopPlayer()
-    } else {
-      movePlayer({
+    if (!collision && cutMoveShort(direction, keyName)) {
+      return stopPlayer()
+    }
+
+    if (collision) {
+      if (isAnyOtherDirection(collisionDirection, keyName)) {        
+        return movePlayer({
+          direction: INPUT_DIRECTIONS[keyName],
+          progress: ACCELERATION_STEPS[0],
+          step: 0
+        })
+      } else {
+        return stopPlayer()
+      }  
+    } 
+    
+    if (!collision) {
+      return movePlayer({
         direction: INPUT_DIRECTIONS[keyName],
         progress: ACCELERATION_STEPS[0],
         step: 0

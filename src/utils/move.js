@@ -35,6 +35,8 @@ const moves = {
   [DIRECTIONS.LEFT]: moveLeft,
 }
 
-export const handleMove = (direction, position, progress) => {
+export const handleMove = (direction, position, progress, forcePosition)=> {
+  if (forcePosition) 
+    return moves[direction](position, 0)
   return moves[direction](position, progress)
 }

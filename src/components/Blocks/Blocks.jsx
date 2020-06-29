@@ -49,6 +49,7 @@ const Blocks = ({
       top,
       left
     },
+    direction,
     setHasCollision,
     setNoCollision,
   } = useGameContext()
@@ -60,11 +61,14 @@ const Blocks = ({
 
   const checkForCollisionsCallback = useCallback(() => {
     if (collisionBlock) {
-      setHasCollision(collisionBlock)
+      setHasCollision({ collisionBlock: {
+        ...collisionBlock,
+        direction
+      } })
     } else {
       setNoCollision()
     }
-  }, [collisionBlock, setHasCollision, setNoCollision])
+  }, [collisionBlock, setHasCollision, setNoCollision, direction])
 
   useEffect(() => {
     checkForCollisionsCallback()

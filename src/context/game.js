@@ -18,7 +18,13 @@ const withGameContext = (Component) => {
 
     const [state, dispatch] = useReducer(
       combineReducers(playerReducer, collisionReducer), 
-      {...playerInitialState, ...{ collision: false }}
+      {
+        ...playerInitialState,
+        ...{
+          collision: false,
+          collisionBlock: {}
+        }
+      }
     )
     const createAction = action => payload => dispatch({
       type: action,

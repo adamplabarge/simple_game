@@ -41,11 +41,18 @@ export const DIRECTIONS = Object.freeze({
   LEFT
 })
 
+export const OPPOSITE_DIRECTIONS = Object.freeze({
+  [UP]: DOWN,
+  [RIGHT]: LEFT,
+  [DOWN]: UP,
+  [LEFT]: RIGHT
+})
+
 export const INPUT_DIRECTIONS = Object.freeze({
-  [ARROW_UP]: 'UP',
-  [ARROW_RIGHT]: 'RIGHT',
-  [ARROW_DOWN]: 'DOWN',
-  [ARROW_LEFT]: 'LEFT'
+  [ARROW_UP]: UP,
+  [ARROW_RIGHT]: RIGHT,
+  [ARROW_DOWN]: DOWN,
+  [ARROW_LEFT]: LEFT
 })
 
 export const OPPOSITE_INPUT_DIRECTIONS = Object.freeze({
