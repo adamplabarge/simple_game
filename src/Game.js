@@ -1,96 +1,41 @@
-import React, { useState } from 'react'
-import useKey from 'react-keyboard-input-hook'
-import GameBoard from 'components/Board'
-import Piece from 'components/Piece'
-import Thing from 'components/Thing'
-import {
-  BOARD_SIZE,
-  DIRECTION,
-  INTIAL_PIECE_POSITION,
-  INITIAL_BOARD_POSITION
-} from 'utils/constants'
-import {
-  moveUp,
-  moveRight,
-  moveDown,
-  moveLeft,
-} from 'utils/move'
-import {
-  canMoveUp,
-  canMoveRight,
-  canMoveDown,
-  canMoveLeft,
-} from 'utils/collision'
+import React from 'react'
+import styled from '@emotion/styled'
+import Board from 'components/Board'
+import Player from 'components/Player'
+import Blocks from 'components/Blocks'
+import { withGameContext } from 'context/game'
+import { useGameContext } from 'hooks/game'
+import { GAME_BOARD_SIZE } from 'utils/constants'
 
-function Game() {
-
-  const [position, setPosition] = useState(INTIAL_PIECE_POSITION)
-  const [collision, setCollision] = useState(false)
-
-  const handleKeyInput = ({ keyName }) => {
-    switch (keyName) {
-      case DIRECTION.UP: 
-        const pieceCanMoveUp = canMoveUp(position)
-        if (!pieceCanMoveUp.collision) {
-          setPosition(moveUp(position))
-          setCollision(false)
-        } else {
-          setCollision(pieceCanMoveUp)
-        }
-        break
-
-      case DIRECTION.RIGHT:
-        const pieceCanMoveRight = canMoveRight(position)
-        if (!pieceCanMoveRight.collision) {
-          setPosition(moveRight(position))
-          setCollision(false)
-        } else {
-          setCollision(pieceCanMoveRight)
-        }
-        break
-        
-      case DIRECTION.DOWN:
-        const pieceCanMoveDown = canMoveDown(position)
-        if (!pieceCanMoveDown.collision) {
-          setPosition(moveDown(position))
-          setCollision(false)
-        } else {
-          setCollision(pieceCanMoveDown)
-        }
-        break
-
-      case DIRECTION.LEFT:
-        const pieceCanMoveLeft = canMoveLeft(position)
-        if (!pieceCanMoveLeft.collision) {
-          setPosition(moveLeft(position))
-          setCollision(false)
-        } else {
-          setCollision(pieceCanMoveLeft)
-        }
-        break
-      default:
-        return
-    }
-  }
-
-  useKey(handleKeyInput)
-
+const Game = () => {
+  const { direction } = useGameContext()
   return (
-    <div>
-      <GameBoard
-        position={INITIAL_BOARD_POSITION}
-        boardSize={BOARD_SIZE}
-        collision={collision}
-      />
-      <Piece
-        collision={collision}
-        position={position}
-      />
-      <Thing
-        collision={collision}
-      />
-    </div>
+    <GameArea>
+      <Board />
+      <Player />
+      <Blocks />
+      <KeyPressed>
+        <h3>{`Movement: \{ ${direction} \}`}</h3>
+      </KeyPressed>
+    </GameArea>
   )
 }
- 
-export default Game;
+
+const GameArea = styled.div`
+  position: relative;
+  width: ${GAME_BOARD_SIZE}px;
+  height: ${GAME_BOARD_SIZE}px;
+`
+
+const KeyPressed = styled.div`
+  position: absolute;
+  color: khaki;
+  font-size: 8px;
+  top: 1px;
+  margin: 0;
+  line-height: 0.1;
+  padding: 0;
+  right: 7px;
+`
+
+export default withGameContext(Game)

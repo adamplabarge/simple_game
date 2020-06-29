@@ -1,34 +1,42 @@
-import { STEP_SIZE } from './constants'
+import { DIRECTIONS } from 'utils/constants'
 
-export const moveUp = ({ top, left}) => {
+const moveUp = ({ top, left }, progress) => {
   return {
-    top: top - STEP_SIZE,
+    top: top - progress,
     left
   }
 }
 
-export const moveRight = ({ top, left}) => {
+const moveRight = ({ top, left }, progress) => {
   return {
     top,
-    left: left + STEP_SIZE
+    left: left + progress
   }
 }
 
-export const moveDown = ({ top, left}) => {
+const moveDown = ({ top, left }, progress) => {
   return {
-    top: top + STEP_SIZE,
+    top: top + progress,
     left
   }
 }
 
-export const moveLeft = ({ top, left}) => {
+const moveLeft = ({ top, left }, progress) => {
   return {
     top,
-    left: left - STEP_SIZE
+    left: left - progress
   } 
 }
 
-export const nextMoveUp = moveUp
-export const nextMoveRight = moveRight
-export const nextMoveDown = moveDown
-export const nextMoveLeft = moveLeft
+const moves = {
+  [DIRECTIONS.UP]: moveUp,
+  [DIRECTIONS.RIGHT]: moveRight,
+  [DIRECTIONS.DOWN]: moveDown,
+  [DIRECTIONS.LEFT]: moveLeft,
+}
+
+export const handleMove = (direction, position, progress, forcePosition)=> {
+  if (forcePosition) 
+    return moves[direction](position, 0)
+  return moves[direction](position, progress)
+}

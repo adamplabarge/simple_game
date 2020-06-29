@@ -1,44 +1,55 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import {
-  GAME_BOARD_BOARDER_SIZE,
+  GAME_BOARD_SIZE,
+  GAME_BOARD_BORDER_SIZE,
   SIDES
 } from 'utils/constants'
+import Sides from './Sides'
 
-const Board = ({
-  className,
-}) => {
-  return (
-    <div className={className} />
-  )
-}
+const sidesData = [
+  {
+    top: 0,
+    left: 0,
+    width: GAME_BOARD_SIZE,
+    height: GAME_BOARD_BORDER_SIZE,
+    id: SIDES.TOP,
+  },
+  {
+    top: 0,
+    left: GAME_BOARD_SIZE - GAME_BOARD_BORDER_SIZE,
+    width: GAME_BOARD_BORDER_SIZE,
+    height: GAME_BOARD_SIZE,
+    id: SIDES.RIGHT,
+  },
+  {
+    top: GAME_BOARD_SIZE - GAME_BOARD_BORDER_SIZE,
+    left: 0,
+    width: GAME_BOARD_SIZE,
+    height: GAME_BOARD_BORDER_SIZE,
+    id: SIDES.BOTTOM
+  },
+  {
+    top: 0,
+    left: 0,
+    width: GAME_BOARD_BORDER_SIZE,
+    height: GAME_BOARD_SIZE,
+    id: SIDES.LEFT
+  }
+]
+
+const Board = () => <GameBoard>
+    <Sides data={sidesData} />
+  </GameBoard>
+  
  
-const defaultBorderColor = '#023202'
-const GameBoard = styled(Board)(props => {
-  const {
-    collision,
-    boardSize,
-    position: {
-      top,
-      left
-    }} = props
-    
-  const borderColor = collision ? 'red' : defaultBorderColor
-  const { side } = collision
-  const hasHitSide = side ? collision[side.toLowerCase()] : false
+const GameBoard = styled.div`
+  width: ${GAME_BOARD_SIZE}px;
+  height: ${GAME_BOARD_SIZE}px;
+  background-color: green;
+  position: absolute;
+  top: 0;
+  left: 0;
+`
 
-  return `
-    position: absolute;
-    top: ${top}px;
-    left: ${left}px;
-    height: ${boardSize}px;
-    width: ${boardSize}px;
-    background-color: green;
-    border: ${GAME_BOARD_BOARDER_SIZE}px solid;
-    ${hasHitSide ? `border-color: ${defaultBorderColor};` : ``}
-    border-${hasHitSide ? `${side.toLowerCase()}-` : ``}color: ${borderColor};
-
-  `
-})
-
-export default GameBoard
+export default Board
