@@ -15,14 +15,14 @@ const checkForBlockCollision = (block, position) => {
 
 const defaultBlocks = [
   {
-    top: 20,
-    left: 40,
+    top: 40,
+    left: 80,
     width: 40,
     height: 40,
     id: 1,
   },
   {
-    top: 100,
+    top: 130,
     left: 60,
     width: 100,
     height: 60,
@@ -30,10 +30,24 @@ const defaultBlocks = [
   },
   {
     top: 200,
-    left: 200,
+    left: 230,
     width: 40,
     height: 40,
     id: 3
+  },
+  {
+    top: 240,
+    left: 40,
+    width: 100,
+    height: 20,
+    id: 4
+  },
+  {
+    top: 40,
+    left: 200,
+    width: 20,
+    height: 100,
+    id: 5
   }
 ]
 
